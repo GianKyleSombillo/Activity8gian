@@ -9,36 +9,13 @@
     <p>Manage your products here.</p>
 </div>
 
-<div class="input-group mb-3">
-    <label class="input-group-text" for="searchBy">Search By</label>
-    <select class="form-select" id="searchBy" asp-for="SearchBy">
-        <option value="" selected>Choose...</option>
-        <option value="Name">Name</option>
-        <option value="Price">Price</option>
-        <option value="Category">Category</option>
-    </select>
-
-    <input type="text" id="keyword" class="form-control" asp-for="Keyword" placeholder="Enter keyword">
-    <button class="btn btn-outline-secondary" type="button" onclick="search()">
-        <i class="bi bi-search"></i>
-    </button>
-</div>
-
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">
-                <a href="?SortBy=Id&SortAsc=@(Model.SortBy == "Id" && !Model.SortAsc)">Id</a>
-            </th>
-            <th scope="col">
-                <a href="?SortBy=Name&SortAsc=@(Model.SortBy == "Name" && !Model.SortAsc)">Name</a>
-            </th>
-            <th scope="col">
-                <a href="?SortBy=Price&SortAsc=@(Model.SortBy == "Price" && !Model.SortAsc)">Price</a>
-            </th>
-            <th scope="col">
-                <a href="?SortBy=Category&SortAsc=@(Model.SortBy == "Category" && !Model.SortAsc)">Category</a>
-            </th>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Category</th>
         </tr>
     </thead>
     <tbody>
@@ -54,12 +31,3 @@
     </tbody>
 </table>
 
-@section Scripts {
-        <script>
-            function search() {
-                const searchBy = document.getElementById("searchBy").value;
-                const keyword = document.getElementById("keyword").value;
-                window.location = `~/index?searchBy=${searchBy}&keyword=${keyword}`;
-            }
-        </script>
-}
