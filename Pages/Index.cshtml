@@ -1,12 +1,12 @@
 ﻿@page
 @model Activity8gian.Pages.IndexModel
+
 @{
-    ViewData["Title"] = "Product List";
+    ViewData["Title"] = "Product Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Product List</h1>
-    <p>Manage your products here.</p>
 </div>
 
 <div class="input-group mb-3">
@@ -18,26 +18,40 @@
         <option value="Category">Category</option>
     </select>
 
-    <input type="text" id="keyword" class="form-control" asp-for="Keyword" placeholder="Enter keyword">
-    <button class="btn btn-outline-secondary" type="button" onclick="search()">
-        <i class="bi bi-search"></i>
-    </button>
+    <input type="text" id="keyword" class="form-control" asp-for="Keyword">
+    <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="search()"><i class="bi bi-search"></i></button>
 </div>
 
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Category</th>
+            <th scope="col">
+                Name
+                <div class="btn-group" role="group" aria-label="">
+                    <a href="~/index?sortBy=Name&sortAsc=false" class="btn btn-secondary">&lt;</a>
+                    <a href="~/index?sortBy=Name&sortAsc=true" class="btn btn-secondary">&gt;</a>
+                </div>
+            </th>
+            <th scope="col">
+                Price
+                <div class="btn-group" role="group" aria-label="">
+                    <a href="~/index?sortBy=Price&sortAsc=false" class="btn btn-secondary">&lt;</a>
+                    <a href="~/index?sortBy=Price&sortAsc=true" class="btn btn-secondary">&gt;</a>
+                </div>
+            </th>
+            <th scope="col">
+                Category
+                <div class="btn-group" role="group" aria-label="">
+                    <a href="~/index?sortBy=Category&sortAsc=false" class="btn btn-secondary">&lt;</a>
+                    <a href="~/index?sortBy=Category&sortAsc=true" class="btn btn-secondary">&gt;</a>
+                </div>
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var product in Model.Products)
         {
                 <tr>
-                    <td>@product.Id</td>
                     <td>@product.Name</td>
                     <td>@product.Price</td>
                     <td>@product.Category</td>
@@ -49,9 +63,7 @@
 @section Scripts {
         <script>
             function search() {
-                const searchBy = document.getElementById("searchBy").value;
-                const keyword = document.getElementById("keyword").value;
-                window.location = `~/index?searchBy=${searchBy}&keyword=${keyword}`;
+                window.location = "~/index?sortBy=Name&sortAsc=true&searchBy=" + $("#searchBy").val() + "&keyword=" + $("#keyword").val();
             }
         </script>
 }

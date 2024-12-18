@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Activity8gian.Pages
 {
@@ -12,7 +12,6 @@ namespace Activity8gian.Pages
             _logger = logger;
         }
 
-        // A list of products to display
         public List<Product> Products { get; set; } = new();
 
         [BindProperty(SupportsGet = true)]
@@ -30,70 +29,69 @@ namespace Activity8gian.Pages
         public void OnGet()
         {
             // Static list of products
-        Products = new List<Product>()
-            {
-            new Product() {
-                Id = 1,
-                Name = "Product A",
-                Price = 10.99m,
-                Category = "Electronics"
-            },
-            new Product() {
-                Id = 2,
-                Name = "Product B",
-                Price = 20.99m,
-                Category = "Clothing"
-            },
-            new Product() {
-                Id = 3,
-                Name = "Product C",
-                Price = 30.99m,
-                Category = "Groceries"
-            },
-            new Product() {
-                Id = 4,
-                Name = "Product D",
-                Price = 40.99m,
-                Category = "Electronics"
-            },
-            new Product() {
-                Id = 5,
-                Name = "Product E",
-                Price = 50.99m,
-                Category = "Clothing"
-            },
-            new Product() {
-                Id = 6,
-                Name = "Product F",
-                Price = 60.99m,
-                Category = "Electronics"
-            },
-            new Product() {
-                Id = 7,
-                Name = "Product G",
-                Price = 70.99m,
-                Category = "Furniture"
-            },
-            new Product() {
-                Id = 8,
-                Name = "Product H",
-                Price = 80.99m,
-                Category = "Groceries"
-            },
-            new Product() {
-                Id = 9,
-                Name = "Product I",
-                Price = 90.99m,
-                Category = "Clothing"
-            },
-            new Product() {
-                Id = 10,
-                Name = "Product J",
-                Price = 100.99m,
-                Category = "Furniture"
-            }
-             };
-
+            Products = new List<Product>()
+     {
+     new Product() {
+         Id = 1,
+         Name = "Product A",
+         Price = 10.99m,
+         Category = "Electronics"
+     },
+     new Product() {
+         Id = 2,
+         Name = "Product B",
+         Price = 20.99m,
+         Category = "Clothing"
+     },
+     new Product() {
+         Id = 3,
+         Name = "Product C",
+         Price = 30.99m,
+         Category = "Groceries"
+     },
+     new Product() {
+         Id = 4,
+         Name = "Product D",
+         Price = 40.99m,
+         Category = "Electronics"
+     },
+     new Product() {
+         Id = 5,
+         Name = "Product E",
+         Price = 50.99m,
+         Category = "Clothing"
+     },
+     new Product() {
+         Id = 6,
+         Name = "Product F",
+         Price = 60.99m,
+         Category = "Electronics"
+     },
+     new Product() {
+         Id = 7,
+         Name = "Product G",
+         Price = 70.99m,
+         Category = "Furniture"
+     },
+     new Product() {
+         Id = 8,
+         Name = "Product H",
+         Price = 80.99m,
+         Category = "Groceries"
+     },
+     new Product() {
+         Id = 9,
+         Name = "Product I",
+         Price = 90.99m,
+         Category = "Clothing"
+     },
+     new Product() {
+         Id = 10,
+         Name = "Product J",
+         Price = 100.99m,
+         Category = "Furniture"
+     }
+      };
 
             // Filtering logic
             if (!string.IsNullOrEmpty(SearchBy) && !string.IsNullOrEmpty(Keyword))
