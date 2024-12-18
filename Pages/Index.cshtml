@@ -1,25 +1,23 @@
 ﻿@page
 @model Activity8gian.Pages.IndexModel
-
 @{
-    ViewData["Title"] = "Product Page";
+    ViewData["Title"] = "Products";
 }
-
 <div class="text-center">
-    <h1 class="display-4">Product List</h1>
+    <h1 class="display-4">Products</h1>
 </div>
 
 <div class="input-group mb-3">
     <label class="input-group-text" for="searchBy">Search By</label>
-    <select class="form-select" id="searchBy" asp-for="SearchBy">
+    <select class="form-select" id="searchBy" asp-for="SearchParams.SearchBy">
         <option value="" selected>Choose...</option>
         <option value="Name">Name</option>
         <option value="Price">Price</option>
         <option value="Category">Category</option>
     </select>
 
-    <input type="text" id="keyword" class="form-control" asp-for="Keyword">
-    <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="search()"><i class="bi bi-search"></i></button>
+    <input type="text" id="keyword" class="form-control" asp-for="SearchParams.Keyword">
+    <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="search()">Search</button>
 </div>
 
 <table class="table">
@@ -28,28 +26,28 @@
             <th scope="col">
                 Name
                 <div class="btn-group" role="group" aria-label="">
-                    <a href="~/index?sortBy=Name&sortAsc=false" class="btn btn-secondary">&lt;</a>
-                    <a href="~/index?sortBy=Name&sortAsc=true" class="btn btn-secondary">&gt;</a>
+                    <a href="~/Index?sortBy=Name&sortAsc=false" type="button" class="btn btn-secondary">&lt;</a>
+                    <a href="~/Index?sortBy=Name&sortAsc=true" type="button" class="btn btn-secondary">&gt;</a>
                 </div>
             </th>
             <th scope="col">
                 Price
                 <div class="btn-group" role="group" aria-label="">
-                    <a href="~/index?sortBy=Price&sortAsc=false" class="btn btn-secondary">&lt;</a>
-                    <a href="~/index?sortBy=Price&sortAsc=true" class="btn btn-secondary">&gt;</a>
+                    <a href="~/Index?sortBy=Price&sortAsc=false" type="button" class="btn btn-secondary">&lt;</a>
+                    <a href="~/Index?sortBy=Price&sortAsc=true" type="button" class="btn btn-secondary">&gt;</a>
                 </div>
             </th>
             <th scope="col">
                 Category
                 <div class="btn-group" role="group" aria-label="">
-                    <a href="~/index?sortBy=Category&sortAsc=false" class="btn btn-secondary">&lt;</a>
-                    <a href="~/index?sortBy=Category&sortAsc=true" class="btn btn-secondary">&gt;</a>
+                    <a href="~/Index?sortBy=Category&sortAsc=false" type="button" class="btn btn-secondary">&lt;</a>
+                    <a href="~/Index?sortBy=Category&sortAsc=true" type="button" class="btn btn-secondary">&gt;</a>
                 </div>
             </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var product in Model.Products)
+        @foreach (var product in Model.PagedProducts)
         {
                 <tr>
                     <td>@product.Name</td>
@@ -60,10 +58,33 @@
     </tbody>
 </table>
 
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        @{
+            var paramString = "sortBy=" + Model.SearchParams.SortBy + "&sortAsc=" + Model.SearchParams.SortAsc + "&keyword=" + Model.SearchParams.Keyword + "&searchBy=" + Model.SearchParams.SearchBy;
+            int prev = Model.SearchParams.PageIndex > 1 ? Model.SearchParams.PageIndex - 1 : 1;
+            int next = Model.SearchParams.PageIndex < Model.SearchParams.PageCount ? Model.SearchParams.PageIndex + 1 : Model.SearchParams.PageCount;
+        }
+        @if (Model.SearchParams.PageIndex > 1)
+        {
+                <li class="page-item">
+                    <a class="page-link" href="~/Index?@(paramString)&pageSize=@(Model.SearchParams.PageSize)&pageIndex=@(prev)">Previous</a>
+                </li>
+        }
+        <li class="page-item active"><a class="page-link" href="#">@Model.SearchParams.PageIndex of @(Model.SearchParams.PageCount)</a></li>
+        @if (Model.SearchParams.PageIndex < Model.SearchParams.PageCount)
+        {
+                <li class="page-item">
+                    <a class="page-link" href="~/Index?@(paramString)&pageSize=@(Model.SearchParams.PageSize)&pageIndex=@(next)">Next</a>
+                </li>
+        }
+    </ul>
+</nav>
+
 @section Scripts {
         <script>
             function search() {
-                window.location = "~/index?sortBy=Name&sortAsc=true&searchBy=" + $("#searchBy").val() + "&keyword=" + $("#keyword").val();
+                window.location = "../Index?sortBy=Name&sortAsc=false&searchBy=" + $("#searchBy").val() + "&keyword=" + $("#keyword").val()
             }
         </script>
 }
